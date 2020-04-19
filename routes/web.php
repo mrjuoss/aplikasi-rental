@@ -18,5 +18,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/dashboard', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('/dashboard', 'HomeController@index')->name('home');
+    Route::get('produk', 'ProdukController@index');
+    Route::get('produk/tambah', 'ProdukController@tambah');
+});
